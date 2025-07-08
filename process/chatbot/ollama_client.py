@@ -3,6 +3,7 @@ import json
 
 OLLAMA_API = "http://localhost:11434"
 HEADERS = {"Content-Type": "application/json"}
+chat_history = []
 
 
 def model_exists(model_name):
@@ -44,23 +45,33 @@ def pull_model(model_name):
         return f"❌ Error pulling model: {e}"
 
 
+def update_history(system_prompt, user_prompt):
+    global chat_history
+    if not any(m["role"] == "system" for m in chat_history):
+        chat_history.insert(0, {"role": "system", "content": system_prompt})
+    chat_history.append({"role": "user", "content": user_prompt})
+
+
 def chat_with_model(system_prompt, user_prompt, model_name):
-    """Send chat message to Ollama API."""
+    update_history(system_prompt, user_prompt)
     payload = {
         "model": model_name,
-        "messages": [
-            {"role": "system", "content": system_prompt},
-            {"role": "user", "content": user_prompt}
-        ],
+        "messages": chat_history,
         "stream": False
     }
-
     try:
         res = requests.post(f"{OLLAMA_API}/api/chat", headers=HEADERS, data=json.dumps(payload))
         if res.status_code == 200:
             result = res.json()
-            return result["message"]["content"]
+            assistant_reply = result["message"]["content"]
+            chat_history.append({"role": "assistant", "content": assistant_reply})
+            return assistant_reply
         else:
             return f"❌ Error {res.status_code}: {res.text}"
     except Exception as e:
         return f"❌ Exception occurred: {str(e)}"
+
+
+def reset_history():
+    global chat_history
+    chat_history = []
