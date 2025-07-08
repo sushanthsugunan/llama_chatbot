@@ -1,5 +1,5 @@
-# OLLAMA Chat Bot - general purppose
-> OLLAMA application must be installed in your computer. OLLAMA application must be running post installation
-> pull the repo and place it in required directory.
-> On the Command line after you are in the app.py folder directory - run  "python app.py"
-> the application will run in you local host. click on the link and check if it is working.
+# OLLAMA Chat Bot - general purpose
+1. OLLAMA application must be installed in your computer. OLLAMA application must be running post installation
+2. pull the repo and place it in required directory.
+3. On the Command line after you are in the app.py folder directory - run  "python app.py"
+4. the application will run in you local host. click on the link and check if it is working.
