@@ -41,7 +41,7 @@ def generate_response(n_clicks, system_prompt, user_prompt, model_name):
     if n_clicks == 0 or not user_prompt:
         return ""
 
-    if not model_exists(modelgit _name):
+    if not model_exists(model_name):
         pull_status = pull_model(model_name)
         if not pull_status.startswith("✅"):
             return pull_status
