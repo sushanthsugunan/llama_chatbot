@@ -1,6 +1,7 @@
 from chatbot.ollama_client import model_exists, pull_model, chat_with_model, reset_history
 import gradio as gr
 
+
 def generate_response(system_prompt, user_prompt, model_name):
     if not user_prompt:
         return "❗Please enter a user prompt."
@@ -17,8 +18,6 @@ def generate_response(system_prompt, user_prompt, model_name):
 
     return chat_with_model(system_prompt, user_prompt, model_name)
 
-
-    return chat_with_model(system_prompt, user_prompt, model_name)
 
 def reset_chat():
     reset_history()
